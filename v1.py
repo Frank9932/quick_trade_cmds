@@ -40,6 +40,7 @@ default_riskLevel = 3 # unit in %
 api_key = Config.API_KEY
 secret_key = Config.SECRET_KEY 
 passphrase = Config.PASSPHRASE
+# change to hjson 
 flag =Config.FLAG
 tradeAPI   =     Trade.TradeAPI(api_key, secret_key, passphrase, False, flag)
 accountAPI = Account.AccountAPI(api_key, secret_key, passphrase, False, flag)
@@ -237,6 +238,7 @@ def get_pair_ticker():
     instId = crypto_combobox.get()
     result = marketAPI.get_ticker(instId)
     print(result)
+# get 1 lot 
     ticker_price = extract_from_dict(result,"bidPx")
     price_input.delete(0, tk.END)  # Clear the current input
     price_input.insert(0, ticker_price)  # Set clipboard price in the input box
@@ -254,7 +256,7 @@ def  place_lmtorder():
         plr = float(plr_input.get())
         riskUnit = float(risk_unit_input.get())
         stopRate = float(price_input.get())
-    
+# PRICE INPUT GET STOP STOP RATE 
         print(side)
         if side == "buy":
             buyRate = float(extract_from_dict(marketAPI.get_ticker(instId),"bidPx"))
@@ -281,8 +283,8 @@ def  place_lmtorder():
                     quickMgnType = 'auto_borrow',
                     tpTriggerPx = '', 
                     tpOrdPx = "", 
-                    slTriggerPx = '',
-                    slOrdPx = "",
+                    slTriggerPx = 'stopRate',
+                    slOrdPx = "stopRate",
                     tpTriggerPxType = '', 
                     slTriggerPxType = ''
                     )
@@ -292,7 +294,7 @@ def  place_lmtorder():
                 print('---------------------------')
                 print(f'Side     : {side}')
                 print(f'lost     : {lost}')
-                print(f'Out Rate : {outRate}')
+                print(f'Out Rate : {outRate} please manual put order')
                 print(f'Buy Rate : {px}')
                 print(f'Stop Rate: {stopRate}')
                 print(f'Qty      : {quantity}')
